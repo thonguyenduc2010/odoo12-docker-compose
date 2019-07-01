@@ -6,6 +6,8 @@ services:
       - POSTGRES_PASSWORD=odoo
       - POSTGRES_USER=odoo
       - POSTGRES_DB=postgres
+    ports:
+      - "10001:5432"      
     restart: always             # run as a service
 
   odoo12:
@@ -13,11 +15,12 @@ services:
     depends_on:
       - db
     ports:
-      - "8026:8069"
+      - "10000:8069"
     tty: true
     command: -- --dev=reload
 #    command: odoo scaffold /mnt/extra-addons/test_module
     volumes:
       - ./addons:/mnt/extra-addons
       - ./etc:/etc/odoo
+      - ./data:/var/lib/odoo
     restart: always             # run as a service
