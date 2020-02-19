@@ -38,6 +38,10 @@ To change Odoo configuration, edit file: **etc/odoo.conf**.
 
 # Nginx configuration
 <pre>
+upstream odooo_retail_pos {
+ server localhost:12003;
+}
+
 server {
         listen 80;
         server_name hr.scisoftware.xyz;
