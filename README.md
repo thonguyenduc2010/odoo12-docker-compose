@@ -36,6 +36,27 @@ The **addons** folder contains custom addons. Just put your custom addons if you
 
 To change Odoo configuration, edit file: **etc/odoo.conf**.
 
+# Nginx configuration
+<pre>
+server {
+        listen 80;
+        server_name hr.scisoftware.xyz;
+        location / {
+            proxy_redirect off;
+            proxy_pass http://odooo_retail_pos;
+        }
+        proxy_read_timeout 720s;
+        proxy_connect_timeout 720s;
+        proxy_send_timeout 720s;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Real-IP $remote_addr;
+        add_header Strict-Transport-Security max-age=15768000;
+        client_max_body_size 100M;
+}
+
+</pre>
 # docker-compose.yml
 
 * odoo:12.0
